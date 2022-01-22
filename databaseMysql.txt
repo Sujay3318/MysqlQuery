@@ -1,0 +1,40 @@
+show databases;
+use employee;
+show tables;
+select * from course;
+truncate table course;
+insert into course values(1,"C++");
+insert into course values(2,"java");
+insert into course values(3,"python");
+insert into course values(4,"Angular");
+ALTER TABLE course CHANGE name cname varchar(10) ; /*change the cloumn name */
+ALTER TABLE course CHANGE id cid int ;
+update course set name="king" where id=2; 
+truncate table course;
+delete from course where id=3; 
+delete from course;
+alter table course add constraint fk primary key (id);
+desc course;
+desc employee;
+create table employeeJoinCourse (eid int,ename varchar(20), cid int );
+drop table employeeJoinCourse;  /*it will drop whole table   */
+truncate table employeeJoinCourse; /*Truncate will delte all records  table structure reamain as it it      */
+insert into employeeJoinCourse values(1,"e1",1);
+insert into employeeJoinCourse values(2,"e2",1);
+insert into employeeJoinCourse values(3,"e3",1);
+insert into employeeJoinCourse values(4,"e4",4);
+delete from employeeJoinCourse where eid=3;
+select * from employeeJoinCourse;
+desc employeeJoinCourse;
+alter table employeeJoinCourse add constraint pk primary key (eid);  /* add primary key constarint with name */
+alter table employeeJoinCourse add constraint fk FOREIGN KEY(cid) REFERENCES course(cid);
+select * from employeeJoinCourse; 
+select * from course c inner join employeeJoinCourse e on c.cid=e.cid ; /* according to equals column join */
+select count(cid) as 'count in each course' from employeeJoinCourse group by cid ;
+select count(e.cid) as 'count in each course' , c.cname as 'course name' from course c inner join employeeJoinCourse e on c.cid=e.cid group by e.cid; 
+select * from course where cname='C++';
+select * from course where cname like '%C%'; 
+select ename as 'employee details whose course is c++' , eid as 'employee id' from employeeJoinCourse where cid=(select cid from course where cname='C++');
+
+
+
